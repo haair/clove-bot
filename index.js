@@ -2,6 +2,7 @@ const { Client, GatewayIntentBits, Collection, REST, Routes } = require('discord
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
+const express = require('express');
 
 // Tạo client bot
 const client = new Client({
@@ -88,3 +89,9 @@ client.on('interactionCreate', async interaction => {
 
 // Đăng nhập bot
 client.login(process.env.DISCORD_TOKEN);
+
+const app = express();
+
+app.get('/', (req, res) => res.send('Bot is running!'));
+
+app.listen(3000, () => console.log('Web server running...'));
