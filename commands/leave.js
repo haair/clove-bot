@@ -35,7 +35,6 @@ module.exports = {
             // Ngắt kết nối
             if (connection.state.status !== VoiceConnectionStatus.Destroyed) {
                 connection.destroy();
-                client.voiceConnections.delete(interaction.guild.id);
             }
             await interaction.followUp({ content: 'Đã rời voice channel!' });
         } catch (error) {
