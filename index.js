@@ -78,7 +78,7 @@ client.on('interactionCreate', async interaction => {
         const command = client.commands.get(interaction.commandName);
         if (command) {
             try {
-                await command.execute(interaction, client);
+                await command.execute(interaction);
             } catch (error) {
                 console.error(error);
                 await interaction.reply({ content: 'Đã xảy ra lỗi khi thực hiện lệnh!', ephemeral: true });
