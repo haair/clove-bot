@@ -14,10 +14,6 @@ const client = new Client({
     ]
 });
 
-// Khởi tạo lưu trữ voice connections và commands
-client.voiceConnections = new Map();
-client.commands = new Collection();
-
 // Đọc và đăng ký lệnh
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -60,6 +56,7 @@ for (const file of eventFiles) {
 // Xử lý slash commands
 client.on('interactionCreate', async interaction => {
     if (interaction.isAutocomplete()) {
+        await interaction.deferReply({ ephemeral: true });
         const focusedValue = interaction.options.getFocused();
         const choices = fs.readdirSync('./sounds')
             .filter(f => f.endsWith('.mp3') || f.endsWith('.wav'));
@@ -75,7 +72,7 @@ client.on('interactionCreate', async interaction => {
 
     // Slash command chính
     if (interaction.isChatInputCommand()) {
-        const command = client.commands.get(interaction.commandName);
+        const command = commands.get(interaction.commandName);
         if (command) {
             try {
                 await command.execute(interaction);

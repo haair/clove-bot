@@ -15,7 +15,7 @@ module.exports = {
         const sound = interaction.options.getString('sound');
         const filePath = `./sounds/${sound}`;
 
-        const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus } = require('@discordjs/voice');
+        const { joinVoiceChannel, createAudioPlayer, createAudioResource } = require('@discordjs/voice');
         const fs = require('fs');
 
         if (!fs.existsSync(filePath)) {
