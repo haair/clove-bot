@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { createAudioPlayer, createAudioResource, AudioPlayerStatus, VoiceConnectionStatus } = require('@discordjs/voice');
+const { createAudioPlayer, createAudioResource, AudioPlayerStatus, VoiceConnectionStatus, getVoiceConnection } = require('@discordjs/voice');
 const fs = require('fs');
 const path = require('path');
 
@@ -13,7 +13,7 @@ module.exports = {
         .setName('leave')
         .setDescription('Ngắt kết nối bot khỏi voice channel và phát âm thanh rời'),
     async execute(interaction, client) {
-        const connection = client.voiceConnections?.get(interaction.guild.id);
+        const connection = getVoiceConnection(interaction.guild.id)
         if (!connection) {
             return interaction.reply({ content: 'Bot không ở trong voice channel!', ephemeral: true });
         }
