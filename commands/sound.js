@@ -42,6 +42,6 @@ module.exports = {
 
         player.play(resource);
 
-        await interaction.reply(`🎵 Đang phát: \`${sound}\``);
+        // await interaction.reply(`🎵 Đang phát: \`${sound}\``);
     },
 };

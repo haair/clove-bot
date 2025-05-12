@@ -25,7 +25,7 @@ module.exports = {
             // Kiểm tra xem bot đã ở trong voice channel chưa
             connection = getVoiceConnection(interaction.guild.id)
             if (connection) {
-                return interaction.reply({ content: 'Bot đã ở trong voice channel! Dùng /sound để phát âm thanh.', ephemeral: true });
+                // return interaction.reply({ content: 'Bot đã ở trong voice channel! Dùng /sound để phát âm thanh.', ephemeral: true });
             }
 
             // Tham gia voice channel
@@ -53,7 +53,7 @@ module.exports = {
             connection.subscribe(player);
 
             // Thông báo đang phát
-            await interaction.reply({ content: `Bot đã join và đang phát âm thanh mặc định: ${defaultSound.replace('.mp3', '')}` });
+            // await interaction.reply({ content: `Bot đã join và đang phát âm thanh mặc định: ${defaultSound.replace('.mp3', '')}` });
 
             // Xử lý lỗi player
             player.on('error', error => {
