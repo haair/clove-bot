@@ -26,7 +26,7 @@ module.exports = {
                 const resource = createAudioResource(fs.createReadStream(goodbyeSoundFile));
                 player.play(resource);
                 connection.subscribe(player);
-                await interaction.reply({ content: `Đang phát âm thanh rời: ${goodbyeSound.replace('.mp3', '')}` });
+                // await interaction.reply({ content: `Đang phát âm thanh rời: ${goodbyeSound.replace('.mp3', '')}` });
                 await new Promise(resolve => player.on(AudioPlayerStatus.Idle, resolve));
             } else {
                 await interaction.reply({ content: `Cảnh báo: Không tìm thấy âm thanh rời (${goodbyeSound}).` });
@@ -36,7 +36,8 @@ module.exports = {
             if (connection.state.status !== VoiceConnectionStatus.Destroyed) {
                 connection.destroy();
             }
-            await interaction.followUp({ content: 'Đã rời voice channel!' });
+            // await interaction.followUp({ content: 'Đã rời voice channel!' });
+            await interaction.reply({ content: 'Bye' });
         } catch (error) {
             console.error('Lỗi khi rời voice channel:', error);
             await interaction.reply({ content: 'Có lỗi xảy ra khi rời voice channel!', ephemeral: true });

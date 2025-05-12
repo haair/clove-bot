@@ -53,7 +53,7 @@ module.exports = {
             connection.subscribe(player);
 
             // Thông báo đang phát
-            // await interaction.reply({ content: `Bot đã join và đang phát âm thanh mặc định: ${defaultSound.replace('.mp3', '')}` });
+            await interaction.reply({ content: 'Hello' });
 
             // Xử lý lỗi player
             player.on('error', error => {
