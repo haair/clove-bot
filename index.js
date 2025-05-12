@@ -1,8 +1,9 @@
-const { Client, GatewayIntentBits, Collection, REST, Routes } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, REST, Routes, MessageFlags } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 const express = require('express');
+const { scheduleGoodMorning } = require('./utils/goodMorning')
 
 // Tạo client bot
 const client = new Client({
@@ -14,6 +15,8 @@ const client = new Client({
     ]
 });
 
+client.commands = new Collection();
+
 // Đọc và đăng ký lệnh
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -23,8 +26,8 @@ const commands = [];
 for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
     const command = require(filePath);
-    client.commands.set(command.data.name, command);
     commands.push(command.data.toJSON());
+    client.commands.set(command.data.name, command);
 }
 
 // Đăng ký slash commands với Discord API
@@ -56,7 +59,6 @@ for (const file of eventFiles) {
 // Xử lý slash commands
 client.on('interactionCreate', async interaction => {
     if (interaction.isAutocomplete()) {
-        await interaction.deferReply({ ephemeral: true });
         const focusedValue = interaction.options.getFocused();
         const choices = fs.readdirSync('./sounds')
             .filter(f => f.endsWith('.mp3') || f.endsWith('.wav'));
@@ -72,23 +74,23 @@ client.on('interactionCreate', async interaction => {
 
     // Slash command chính
     if (interaction.isChatInputCommand()) {
-        const command = commands.get(interaction.commandName);
+        const command = client.commands.get(interaction.commandName);
         if (command) {
             try {
                 await command.execute(interaction);
             } catch (error) {
                 console.error(error);
-                await interaction.reply({ content: 'Đã xảy ra lỗi khi thực hiện lệnh!', ephemeral: true });
+                await interaction.reply({ content: 'Đã xảy ra lỗi khi thực hiện lệnh!', flags: MessageFlags.Ephemeral });
             }
         }
     }
 });
 
+scheduleGoodMorning(client);
+
 // Đăng nhập bot
 client.login(process.env.DISCORD_TOKEN);
 
 const app = express();
-
 app.get('/', (req, res) => res.send('Bot is running!'));
-
 app.listen(3000, () => console.log('Web server running...'));
