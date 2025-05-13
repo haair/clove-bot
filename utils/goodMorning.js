@@ -18,7 +18,7 @@ function scheduleGoodMorning(client) {
     // Valorant
     schedule.scheduleJob('* * * * *', async () => {
         const now = moment().tz('Asia/Ho_Chi_Minh');
-        if (now.hour() === 21 && now.minute() === 59) {
+        if (now.hour() === 7 && now.minute() === 30) {
             const channel = await client.channels.fetch(process.env.CHANNEL_ID);
             if (channel && channel.isTextBased()) {
                 channel.send({

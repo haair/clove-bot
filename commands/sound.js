@@ -1,5 +1,5 @@
 // deploy-commands.js (triển khai slash command)
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -42,6 +42,6 @@ module.exports = {
 
         player.play(resource);
 
-        // await interaction.reply(`🎵 Đang phát: \`${sound}\``);
+        await interaction.reply({ content: `🎵 Đang phát: \`${sound}\``, flags: MessageFlags.Ephemeral });
     },
 };

@@ -23,7 +23,7 @@ module.exports = {
                     // 'x-api-key': 'YOUR_API_KEY'
                 }
             });
-            const data = response.data; // lấy 5 người đầu tiên để hiển thị
+            const data = response.data;
 
             let isHavaBirthDay = false;
 
